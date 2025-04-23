@@ -1,9 +1,10 @@
 import { ChevronRightIcon, TrashIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import Button from "./Button";
 
-function Tasks({tasks, onTaskClick, onDeleteTaskClick}) {
+function Tasks({ tasks, onTaskClick, onDeleteTaskClick }) {
   const navigate = useNavigate();
-  function onSeeDetailsClick(task){
+  function onSeeDetailsClick(task) {
     const query = new URLSearchParams();
     query.set("title", task.title);
     query.set("description", task.description);
@@ -13,26 +14,21 @@ function Tasks({tasks, onTaskClick, onDeleteTaskClick}) {
   return (
     <ul className="space-y-2 p-6 rounded-md shadow bg-slate-200">
       {tasks.map((task) => (
-        <li key={task.id} className="flex">
+        <li key={task.id} className="flex gap-2">
           <button
             onClick={() => onTaskClick(task.id)}
-            className={`bg-slate-400 w-full text-white p-2 rounded-md text-left ${
+            className={`bg-blue-400 w-full text-white p-2 rounded-md text-left capitalize${
               task.isCompleted && "line-through"
             }`}
           >
             {task.title}
           </button>
-          <button
-          onClick = {()=> onSeeDetailsClick(task)}
-          className="bg-slate-400 p-2 text-white rounded-md ml-2">
+          <Button onClick={() => onSeeDetailsClick(task)}>
             <ChevronRightIcon />
-          </button>
-          <button
-            onClick={() => onDeleteTaskClick(task.id)}
-            className="bg-slate-400 p-2 text-white rounded-md ml-2"
-          >
+          </Button>
+          <Button onClick={() => onDeleteTaskClick(task.id)}>
             <TrashIcon />
-          </button>
+          </Button>
         </li>
       ))}
     </ul>
